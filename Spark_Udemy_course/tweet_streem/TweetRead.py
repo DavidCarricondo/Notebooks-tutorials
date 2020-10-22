@@ -1,16 +1,19 @@
 import tweepy
-from tweepy import OAuthHandler
-from tweepy import Stream
+from tweepy import OAuthHandler, Stream
 from tweepy.streaming import StreamListener
 import socket
 import json
+import dotenv
+import os
 
+dotenv.load_dotenv()
 
 # Set up your credentials
-consumer_key=''
-consumer_secret=''
-access_token =''
-access_secret=''
+consumer_key = os.getenv('API_KEY')
+consumer_secret = os.getenv('API_SECRET_KEY')
+BEARER_TOKEN = os.getenv('BEARER_TOKEN')
+access_token = os.getenv('ACCES_TOKEN')
+access_secret = os.getenv('ACCESS_SECRET_TOKEN')
 
 
 class TweetsListener(StreamListener):
@@ -37,12 +40,12 @@ def sendData(c_socket):
   auth.set_access_token(access_token, access_secret)
 
   twitter_stream = Stream(auth, TweetsListener(c_socket))
-  twitter_stream.filter(track=['soccer'])
+  twitter_stream.filter(track=['guitar'])
 
 if __name__ == "__main__":
   s = socket.socket()         # Create a socket object
   host = "127.0.0.1"     # Get local machine name
-  port = 5555                 # Reserve a port for your service.
+  port = 9999                 # Reserve a port for your service.
   s.bind((host, port))        # Bind to the port
 
   print("Listening on port: %s" % str(port))
@@ -52,4 +55,4 @@ if __name__ == "__main__":
 
   print( "Received request from: " + str( addr ) )
 
-  sendData( c )
+  sendData(c)

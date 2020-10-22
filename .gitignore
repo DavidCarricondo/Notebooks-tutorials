@@ -2,3 +2,4 @@ image_segmentation/data/
 image_segmentation/ipynb_checkpoints/
 .ipynb_checkpoints/
 .env
+.vscode
